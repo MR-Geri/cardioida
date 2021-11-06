@@ -5,16 +5,15 @@ import math
 class Cardioid:
     def __init__(self, app):
         self.app = app
-        self.radius = 400
+        self.radius = 440
         self.num_lines = 400
         self.translate = self.app.screen.get_width() // 2, self.app.screen.get_height() // 2
         self.counter, self.inc = 0, 0.01
 
     def get_color(self):
         self.counter += self.inc
-        self.counter, self.inc = (self.counter, self.inc) if 0 < self.counter < 1 else (
-            max(min(self.counter, 1), 0), -self.inc
-        )
+        if not 0 < self.counter < 1:
+            self.counter, self.inc = max(min(self.counter, 1), 0), -self.inc
         return pg.Color('red').lerp('green', self.counter)
 
     def draw(self):
